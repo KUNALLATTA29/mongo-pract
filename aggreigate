@@ -1,0 +1,906 @@
+anime> db.orders.aggregate([{$match:{status:"Shipped"}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01d'),
+    customerName: 'Alice Johnson',
+    totalAmount: 150,
+    items: [
+      { product: 'Laptop Bag', price: 50, quantity: 1 },
+      { product: 'Wireless Mouse', price: 100, quantity: 1 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b020'),
+    customerName: 'David White',
+    totalAmount: 350,
+    items: [
+      { product: 'Gaming Headset', price: 150, quantity: 1 },
+      { product: 'RGB Mouse', price: 100, quantity: 2 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-25T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{status:"Delivered"}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01e'),
+    customerName: 'Bob Smith',
+    totalAmount: 200,
+    items: [
+      { product: 'Mechanical Keyboard', price: 120, quantity: 1 },
+      { product: 'Mouse Pad', price: 20, quantity: 2 },
+      { product: 'USB-C Adapter', price: 40, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-10T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b021'),
+    customerName: 'Evelyn Brown',
+    totalAmount: 500,
+    items: [
+      { product: 'Monitor', price: 300, quantity: 1 },
+      { product: 'Wireless Keyboard', price: 200, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-05T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{status:"Pending"}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01f'),
+    customerName: 'Charlie Davis',
+    totalAmount: 80,
+    items: [ { product: 'Smartphone Case', price: 40, quantity: 2 } ],
+    status: 'Pending',
+    orderDate: ISODate('2024-02-18T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{customerName:"Alice Johnson"}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01d'),
+    customerName: 'Alice Johnson',
+    totalAmount: 150,
+    items: [
+      { product: 'Laptop Bag', price: 50, quantity: 1 },
+      { product: 'Wireless Mouse', price: 100, quantity: 1 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-15T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{totalAmount:{$gt:200}}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b020'),
+    customerName: 'David White',
+    totalAmount: 350,
+    items: [
+      { product: 'Gaming Headset', price: 150, quantity: 1 },
+      { product: 'RGB Mouse', price: 100, quantity: 2 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-25T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b021'),
+    customerName: 'Evelyn Brown',
+    totalAmount: 500,
+    items: [
+      { product: 'Monitor', price: 300, quantity: 1 },
+      { product: 'Wireless Keyboard', price: 200, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-05T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{totalAmount:{$lt:100}}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01f'),
+    customerName: 'Charlie Davis',
+    totalAmount: 80,
+    items: [ { product: 'Smartphone Case', price: 40, quantity: 2 } ],
+    status: 'Pending',
+    orderDate: ISODate('2024-02-18T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{totalAmount:{$eq:350}}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b020'),
+    customerName: 'David White',
+    totalAmount: 350,
+    items: [
+      { product: 'Gaming Headset', price: 150, quantity: 1 },
+      { product: 'RGB Mouse', price: 100, quantity: 2 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-25T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{orderDate:"2024-02-10"}}])
+
+anime> db.orders.aggregate([{$match:{orderDate:new Date("2024-02-10")}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01e'),
+    customerName: 'Bob Smith',
+    totalAmount: 200,
+    items: [
+      { product: 'Mechanical Keyboard', price: 120, quantity: 1 },
+      { product: 'Mouse Pad', price: 20, quantity: 2 },
+      { product: 'USB-C Adapter', price: 40, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-10T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{orderDate:{$gte:new Date("2024-01-01"),$lt:new Date("2024-02-01")}}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01d'),
+    customerName: 'Alice Johnson',
+    totalAmount: 150,
+    items: [
+      { product: 'Laptop Bag', price: 50, quantity: 1 },
+      { product: 'Wireless Mouse', price: 100, quantity: 1 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b020'),
+    customerName: 'David White',
+    totalAmount: 350,
+    items: [
+      { product: 'Gaming Headset', price: 150, quantity: 1 },
+      { product: 'RGB Mouse', price: 100, quantity: 2 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-25T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b022'),
+    customerName: 'Frank Harris',
+    totalAmount: 120,
+    items: [
+      { product: 'USB Hub', price: 30, quantity: 2 },
+      { product: 'Laptop Stand', price: 60, quantity: 1 }
+    ],
+    status: 'Cancelled',
+    orderDate: ISODate('2024-01-30T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{orderDate:{$gt:new Date("2024-02-01")}}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01e'),
+    customerName: 'Bob Smith',
+    totalAmount: 200,
+    items: [
+      { product: 'Mechanical Keyboard', price: 120, quantity: 1 },
+      { product: 'Mouse Pad', price: 20, quantity: 2 },
+      { product: 'USB-C Adapter', price: 40, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-10T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b01f'),
+    customerName: 'Charlie Davis',
+    totalAmount: 80,
+    items: [ { product: 'Smartphone Case', price: 40, quantity: 2 } ],
+    status: 'Pending',
+    orderDate: ISODate('2024-02-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b021'),
+    customerName: 'Evelyn Brown',
+    totalAmount: 500,
+    items: [
+      { product: 'Monitor', price: 300, quantity: 1 },
+      { product: 'Wireless Keyboard', price: 200, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-05T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{status:{$in:["Shipped","Delivered"]}}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01d'),
+    customerName: 'Alice Johnson',
+    totalAmount: 150,
+    items: [
+      { product: 'Laptop Bag', price: 50, quantity: 1 },
+      { product: 'Wireless Mouse', price: 100, quantity: 1 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b01e'),
+    customerName: 'Bob Smith',
+    totalAmount: 200,
+    items: [
+      { product: 'Mechanical Keyboard', price: 120, quantity: 1 },
+      { product: 'Mouse Pad', price: 20, quantity: 2 },
+      { product: 'USB-C Adapter', price: 40, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-10T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b020'),
+    customerName: 'David White',
+    totalAmount: 350,
+    items: [
+      { product: 'Gaming Headset', price: 150, quantity: 1 },
+      { product: 'RGB Mouse', price: 100, quantity: 2 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-25T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b021'),
+    customerName: 'Evelyn Brown',
+    totalAmount: 500,
+    items: [
+      { product: 'Monitor', price: 300, quantity: 1 },
+      { product: 'Wireless Keyboard', price: 200, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-05T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{status:{$ne:"Cancelled"}}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01d'),
+    customerName: 'Alice Johnson',
+    totalAmount: 150,
+    items: [
+      { product: 'Laptop Bag', price: 50, quantity: 1 },
+      { product: 'Wireless Mouse', price: 100, quantity: 1 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b01e'),
+    customerName: 'Bob Smith',
+    totalAmount: 200,
+    items: [
+      { product: 'Mechanical Keyboard', price: 120, quantity: 1 },
+      { product: 'Mouse Pad', price: 20, quantity: 2 },
+      { product: 'USB-C Adapter', price: 40, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-10T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b01f'),
+    customerName: 'Charlie Davis',
+    totalAmount: 80,
+    items: [ { product: 'Smartphone Case', price: 40, quantity: 2 } ],
+    status: 'Pending',
+    orderDate: ISODate('2024-02-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b020'),
+    customerName: 'David White',
+    totalAmount: 350,
+    items: [
+      { product: 'Gaming Headset', price: 150, quantity: 1 },
+      { product: 'RGB Mouse', price: 100, quantity: 2 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-25T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b021'),
+    customerName: 'Evelyn Brown',
+    totalAmount: 500,
+    items: [
+      { product: 'Monitor', price: 300, quantity: 1 },
+      { product: 'Wireless Keyboard', price: 200, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-05T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{totalAmount:{$gt:100,$lt:300}}])
+MongoServerError[Location40324]: Unrecognized pipeline stage name: 'totalAmount'
+anime> db.orders.aggregate([{$match:{totalAmount:{$gt:100,$lt:300}}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01d'),
+    customerName: 'Alice Johnson',
+    totalAmount: 150,
+    items: [
+      { product: 'Laptop Bag', price: 50, quantity: 1 },
+      { product: 'Wireless Mouse', price: 100, quantity: 1 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b01e'),
+    customerName: 'Bob Smith',
+    totalAmount: 200,
+    items: [
+      { product: 'Mechanical Keyboard', price: 120, quantity: 1 },
+      { product: 'Mouse Pad', price: 20, quantity: 2 },
+      { product: 'USB-C Adapter', price: 40, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-10T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b022'),
+    customerName: 'Frank Harris',
+    totalAmount: 120,
+    items: [
+      { product: 'USB Hub', price: 30, quantity: 2 },
+      { product: 'Laptop Stand', price: 60, quantity: 1 }
+    ],
+    status: 'Cancelled',
+    orderDate: ISODate('2024-01-30T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{customerName:{$ne:"Bob Smith"}}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01d'),
+    customerName: 'Alice Johnson',
+    totalAmount: 150,
+    items: [
+      { product: 'Laptop Bag', price: 50, quantity: 1 },
+      { product: 'Wireless Mouse', price: 100, quantity: 1 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b01f'),
+    customerName: 'Charlie Davis',
+    totalAmount: 80,
+    items: [ { product: 'Smartphone Case', price: 40, quantity: 2 } ],
+    status: 'Pending',
+    orderDate: ISODate('2024-02-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b020'),
+    customerName: 'David White',
+    totalAmount: 350,
+    items: [
+      { product: 'Gaming Headset', price: 150, quantity: 1 },
+      { product: 'RGB Mouse', price: 100, quantity: 2 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-25T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b021'),
+    customerName: 'Evelyn Brown',
+    totalAmount: 500,
+    items: [
+      { product: 'Monitor', price: 300, quantity: 1 },
+      { product: 'Wireless Keyboard', price: 200, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-05T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b022'),
+    customerName: 'Frank Harris',
+    totalAmount: 120,
+    items: [
+      { product: 'USB Hub', price: 30, quantity: 2 },
+      { product: 'Laptop Stand', price: 60, quantity: 1 }
+    ],
+    status: 'Cancelled',
+    orderDate: ISODate('2024-01-30T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{totalAmount:{$in:[150,500]}}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01d'),
+    customerName: 'Alice Johnson',
+    totalAmount: 150,
+    items: [
+      { product: 'Laptop Bag', price: 50, quantity: 1 },
+      { product: 'Wireless Mouse', price: 100, quantity: 1 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b021'),
+    customerName: 'Evelyn Brown',
+    totalAmount: 500,
+    items: [
+      { product: 'Monitor', price: 300, quantity: 1 },
+      { product: 'Wireless Keyboard', price: 200, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-05T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{orderDate:{$gte:new Date("2024-02-11"),$lte:new Date("2024-02-09")}}}])
+
+anime> db.orders.aggregate([{$match:{orderDate:{$ne:new Date("2024-02-10")}}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01d'),
+    customerName: 'Alice Johnson',
+    totalAmount: 150,
+    items: [
+      { product: 'Laptop Bag', price: 50, quantity: 1 },
+      { product: 'Wireless Mouse', price: 100, quantity: 1 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-15T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b01f'),
+    customerName: 'Charlie Davis',
+    totalAmount: 80,
+    items: [ { product: 'Smartphone Case', price: 40, quantity: 2 } ],
+    status: 'Pending',
+    orderDate: ISODate('2024-02-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b020'),
+    customerName: 'David White',
+    totalAmount: 350,
+    items: [
+      { product: 'Gaming Headset', price: 150, quantity: 1 },
+      { product: 'RGB Mouse', price: 100, quantity: 2 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-25T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b021'),
+    customerName: 'Evelyn Brown',
+    totalAmount: 500,
+    items: [
+      { product: 'Monitor', price: 300, quantity: 1 },
+      { product: 'Wireless Keyboard', price: 200, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-05T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b022'),
+    customerName: 'Frank Harris',
+    totalAmount: 120,
+    items: [
+      { product: 'USB Hub', price: 30, quantity: 2 },
+      { product: 'Laptop Stand', price: 60, quantity: 1 }
+    ],
+    status: 'Cancelled',
+    orderDate: ISODate('2024-01-30T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{items.product:"Wireless Mouse"}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:35)
+
+> 1 | db.orders.aggregate([{$match:{items.product:"Wireless Mouse"}}])
+    |                                    ^
+  2 |
+
+anime> db.orders.aggregate([{$match:{"items.product":"Wireless Mouse"}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01d'),
+    customerName: 'Alice Johnson',
+    totalAmount: 150,
+    items: [
+      { product: 'Laptop Bag', price: 50, quantity: 1 },
+      { product: 'Wireless Mouse', price: 100, quantity: 1 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-15T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{"items.price":{$gt:100}}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01e'),
+    customerName: 'Bob Smith',
+    totalAmount: 200,
+    items: [
+      { product: 'Mechanical Keyboard', price: 120, quantity: 1 },
+      { product: 'Mouse Pad', price: 20, quantity: 2 },
+      { product: 'USB-C Adapter', price: 40, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-10T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b020'),
+    customerName: 'David White',
+    totalAmount: 350,
+    items: [
+      { product: 'Gaming Headset', price: 150, quantity: 1 },
+      { product: 'RGB Mouse', price: 100, quantity: 2 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-25T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b021'),
+    customerName: 'Evelyn Brown',
+    totalAmount: 500,
+    items: [
+      { product: 'Monitor', price: 300, quantity: 1 },
+      { product: 'Wireless Keyboard', price: 200, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-05T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{"items.quantity":2}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01e'),
+    customerName: 'Bob Smith',
+    totalAmount: 200,
+    items: [
+      { product: 'Mechanical Keyboard', price: 120, quantity: 1 },
+      { product: 'Mouse Pad', price: 20, quantity: 2 },
+      { product: 'USB-C Adapter', price: 40, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-10T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b01f'),
+    customerName: 'Charlie Davis',
+    totalAmount: 80,
+    items: [ { product: 'Smartphone Case', price: 40, quantity: 2 } ],
+    status: 'Pending',
+    orderDate: ISODate('2024-02-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b020'),
+    customerName: 'David White',
+    totalAmount: 350,
+    items: [
+      { product: 'Gaming Headset', price: 150, quantity: 1 },
+      { product: 'RGB Mouse', price: 100, quantity: 2 }
+    ],
+    status: 'Shipped',
+    orderDate: ISODate('2024-01-25T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b022'),
+    customerName: 'Frank Harris',
+    totalAmount: 120,
+    items: [
+      { product: 'USB Hub', price: 30, quantity: 2 },
+      { product: 'Laptop Stand', price: 60, quantity: 1 }
+    ],
+    status: 'Cancelled',
+    orderDate: ISODate('2024-01-30T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$match:{"items.price":{$lt:50}}}])
+[
+  {
+    _id: ObjectId('67b6d161604dfa445786b01e'),
+    customerName: 'Bob Smith',
+    totalAmount: 200,
+    items: [
+      { product: 'Mechanical Keyboard', price: 120, quantity: 1 },
+      { product: 'Mouse Pad', price: 20, quantity: 2 },
+      { product: 'USB-C Adapter', price: 40, quantity: 1 }
+    ],
+    status: 'Delivered',
+    orderDate: ISODate('2024-02-10T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b01f'),
+    customerName: 'Charlie Davis',
+    totalAmount: 80,
+    items: [ { product: 'Smartphone Case', price: 40, quantity: 2 } ],
+    status: 'Pending',
+    orderDate: ISODate('2024-02-18T00:00:00.000Z')
+  },
+  {
+    _id: ObjectId('67b6d161604dfa445786b022'),
+    customerName: 'Frank Harris',
+    totalAmount: 120,
+    items: [
+      { product: 'USB Hub', price: 30, quantity: 2 },
+      { product: 'Laptop Stand', price: 60, quantity: 1 }
+    ],
+    status: 'Cancelled',
+    orderDate: ISODate('2024-01-30T00:00:00.000Z')
+  }
+]
+anime> db.orders.aggregate([{$group:{_id:"$status", numberOfOrders:{$count:"$items.quantity"}}}])
+MongoServerError[TypeMismatch]: $count takes no arguments, i.e. $count:{}
+anime> db.orders.aggregate([{$group:{_id:"$status", numberOfOrders:{$count:{}}}}])
+[
+  { _id: 'Delivered', numberOfOrders: 2 },
+  { _id: 'Cancelled', numberOfOrders: 1 },
+  { _id: 'Shipped', numberOfOrders: 2 },
+  { _id: 'Pending', numberOfOrders: 1 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$customerName",orderPlaced:{$count:{}}}}])
+[
+  { _id: 'Bob Smith', orderPlaced: 1 },
+  { _id: 'Alice Johnson', orderPlaced: 1 },
+  { _id: 'Charlie Davis', orderPlaced: 1 },
+  { _id: 'Evelyn Brown', orderPlaced: 1 },
+  { _id: 'Frank Harris', orderPlaced: 1 },
+  { _id: 'David White', orderPlaced: 1 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$customerName",orderPlaced:{$sum:1}}}])
+[
+  { _id: 'Alice Johnson', orderPlaced: 1 },
+  { _id: 'Charlie Davis', orderPlaced: 1 },
+  { _id: 'David White', orderPlaced: 1 },
+  { _id: 'Evelyn Brown', orderPlaced: 1 },
+  { _id: 'Frank Harris', orderPlaced: 1 },
+  { _id: 'Bob Smith', orderPlaced: 1 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$status", totalRevenue :{$sum :{"$totalAmount"}}}}])
+Uncaught:
+SyntaxError: Unexpected token (1:81)
+
+> 1 | db.orders.aggregate([{$group:{_id:"$status", totalRevenue :{$sum :{"$totalAmount"}}}}])
+    |                                                                                  ^
+  2 |
+
+anime> db.orders.aggregate([{$group:{_id:"$status", totalRevenue :{$sum :"$totalAmount"}}}])
+[
+  { _id: 'Pending', totalRevenue: 80 },
+  { _id: 'Cancelled', totalRevenue: 120 },
+  { _id: 'Shipped', totalRevenue: 500 },
+  { _id: 'Delivered', totalRevenue: 700 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$customerName",totalRevenue:{$sum:"$totalAmount"}}}])
+[
+  { _id: 'Evelyn Brown', totalRevenue: 500 },
+  { _id: 'Frank Harris', totalRevenue: 120 },
+  { _id: 'Alice Johnson', totalRevenue: 150 },
+  { _id: 'Charlie Davis', totalRevenue: 80 },
+  { _id: 'Bob Smith', totalRevenue: 200 },
+  { _id: 'David White', totalRevenue: 350 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$status",averageOrderValue:{$avg:"$totalAmount"}}}])
+[
+  { _id: 'Shipped', averageOrderValue: 250 },
+  { _id: 'Delivered', averageOrderValue: 350 },
+  { _id: 'Pending', averageOrderValue: 80 },
+  { _id: 'Cancelled', averageOrderValue: 120 }
+]
+anime> ab.orders.aggregate([{$group:{_id:"$customerName",averageOrderValue:{$avg:"$totalAmount"}}}])
+ReferenceError: ab is not defined
+anime>  db.orders.aggregate([{$group:{_id:"$customerName",averageOrderValue:{$avg:"$totalAmount"}}}])
+[
+  { _id: 'Frank Harris', averageOrderValue: 120 },
+  { _id: 'David White', averageOrderValue: 350 },
+  { _id: 'Bob Smith', averageOrderValue: 200 },
+  { _id: 'Charlie Davis', averageOrderValue: 80 },
+  { _id: 'Alice Johnson', averageOrderValue: 150 },
+  { _id: 'Evelyn Brown', averageOrderValue: 500 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$status", highestOrderValue:{$max:"$totalAmount"}}}])
+[
+  { _id: 'Pending', highestOrderValue: 80 },
+  { _id: 'Cancelled', highestOrderValue: 120 },
+  { _id: 'Shipped', highestOrderValue: 350 },
+  { _id: 'Delivered', highestOrderValue: 500 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$customerName", highestOrderValue:{$max:"$totalAmount"}}}])
+[
+  { _id: 'Bob Smith', highestOrderValue: 200 },
+  { _id: 'Alice Johnson', highestOrderValue: 150 },
+  { _id: 'Charlie Davis', highestOrderValue: 80 },
+  { _id: 'Evelyn Brown', highestOrderValue: 500 },
+  { _id: 'Frank Harris', highestOrderValue: 120 },
+  { _id: 'David White', highestOrderValue: 350 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$status", lowestOrderValue:{$min:"$totalAmount"}}}])
+[
+  { _id: 'Pending', lowestOrderValue: 80 },
+  { _id: 'Cancelled', lowestOrderValue: 120 },
+  { _id: 'Shipped', lowestOrderValue: 150 },
+  { _id: 'Delivered', lowestOrderValue: 200 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$customerName",lowestOrderValue:{$min:"$totalAmount"}}}])
+[
+  { _id: 'Bob Smith', lowestOrderValue: 200 },
+  { _id: 'Alice Johnson', lowestOrderValue: 150 },
+  { _id: 'Charlie Davis', lowestOrderValue: 80 },
+  { _id: 'Evelyn Brown', lowestOrderValue: 500 },
+  { _id: 'Frank Harris', lowestOrderValue: 120 },
+  { _id: 'David White', lowestOrderValue: 350 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$status", orders:{$sum:1}}}])
+[
+  { _id: 'Shipped', orders: 2 },
+  { _id: 'Delivered', orders: 2 },
+  { _id: 'Pending', orders: 1 },
+  { _id: 'Cancelled', orders: 1 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$customerName",orers:{$sum:1}}}])
+[
+  { _id: 'Alice Johnson', orers: 1 },
+  { _id: 'Charlie Davis', orers: 1 },
+  { _id: 'David White', orers: 1 },
+  { _id: 'Evelyn Brown', orers: 1 },
+  { _id: 'Frank Harris', orers: 1 },
+  { _id: 'Bob Smith', orers: 1 }
+]
+anime> dbdb.orders.aggregate([{$group:{_id:"$status",total:{$sum:"$totalAmount"}}}])
+ReferenceError: dbdb is not defined
+anime> db.orders.aggregate([{$group:{_id:"$status",total:{$sum:"$totalAmount"}}}])
+[
+  { _id: 'Cancelled', total: 120 },
+  { _id: 'Pending', total: 80 },
+  { _id: 'Delivered', total: 700 },
+  { _id: 'Shipped', total: 500 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$customerName",totalSpent:{$sum:"$totalAmount"}}}])
+[
+  { _id: 'Bob Smith', totalSpent: 200 },
+  { _id: 'Charlie Davis', totalSpent: 80 },
+  { _id: 'David White', totalSpent: 350 },
+  { _id: 'Evelyn Brown', totalSpent: 500 },
+  { _id: 'Frank Harris', totalSpent: 120 },
+  { _id: 'Alice Johnson', totalSpent: 150 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$orderDate",orders:{$sum:1}}}])
+[
+  { _id: ISODate('2024-01-15T00:00:00.000Z'), orders: 1 },
+  { _id: ISODate('2024-01-25T00:00:00.000Z'), orders: 1 },
+  { _id: ISODate('2024-02-18T00:00:00.000Z'), orders: 1 },
+  { _id: ISODate('2024-02-05T00:00:00.000Z'), orders: 1 },
+  { _id: ISODate('2024-02-10T00:00:00.000Z'), orders: 1 },
+  { _id: ISODate('2024-01-30T00:00:00.000Z'), orders: 1 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$status", average:{$avg:"$totalAmount"}}}])
+[
+  { _id: 'Pending', average: 80 },
+  { _id: 'Cancelled', average: 120 },
+  { _id: 'Shipped', average: 250 },
+  { _id: 'Delivered', average: 350 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$customerName", highest:{$max:"$totalAmount"}}}])
+[
+  { _id: 'Bob Smith', highest: 200 },
+  { _id: 'Charlie Davis', highest: 80 },
+  { _id: 'David White', highest: 350 },
+  { _id: 'Evelyn Brown', highest: 500 },
+  { _id: 'Frank Harris', highest: 120 },
+  { _id: 'Alice Johnson', highest: 150 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$customerName", lowest:{$min:"$totalAmount"}}}])
+
+[
+  { _id: 'Alice Johnson', lowest: 150 },
+  { _id: 'Bob Smith', lowest: 200 },
+  { _id: 'David White', lowest: 350 },
+  { _id: 'Evelyn Brown', lowest: 500 },
+  { _id: 'Frank Harris', lowest: 120 },
+  { _id: 'Charlie Davis', lowest: 80 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$status", sum:{$sum:"$totalAmount"}}}])
+[
+  { _id: 'Pending', sum: 80 },
+  { _id: 'Cancelled', sum: 120 },
+  { _id: 'Shipped', sum: 500 },
+  { _id: 'Delivered', sum: 700 }
+]
+anime> db.orders.aggregate([{$group:{_id:"$orderDate",totalAmount:{$sum:"$totalAmount"}}}])
+[
+  { _id: ISODate('2024-02-18T00:00:00.000Z'), totalAmount: 80 },
+  { _id: ISODate('2024-01-15T00:00:00.000Z'), totalAmount: 150 },
+  { _id: ISODate('2024-01-25T00:00:00.000Z'), totalAmount: 350 },
+  { _id: ISODate('2024-02-05T00:00:00.000Z'), totalAmount: 500 },
+  { _id: ISODate('2024-01-30T00:00:00.000Z'), totalAmount: 120 },
+  { _id: ISODate('2024-02-10T00:00:00.000Z'), totalAmount: 200 }
+]
+anime>  db.orders.aggregate([{$group:{_id:"$orderDate",totalAmount:{$sum:"$items.quantity"}}}]
+...
+anime> db.orders.aggregate([{$group:{_id:"$orderDate",totalAmount:{$sum:"$items.quantity"}}}]
+...
+anime> db.orders.aggregate([{$unwind:"$items"},{$group:{_id:"$customerName",totalItems:{$sum:"$items.quantity"}}}])
+[
+  { _id: 'Charlie Davis', totalItems: 2 },
+  { _id: 'Bob Smith', totalItems: 4 },
+  { _id: 'David White', totalItems: 3 },
+  { _id: 'Frank Harris', totalItems: 3 },
+  { _id: 'Evelyn Brown', totalItems: 2 },
+  { _id: 'Alice Johnson', totalItems: 2 }
+]
+anime> db.orders.aggregate([{$unwind:"$items",{$group:{_id:"$status",totalItems:{$sum:"$items.quantity"}}}}])
+Uncaught:
+SyntaxError: Unexpected token (1:39)
+
+> 1 | db.orders.aggregate([{$unwind:"$items",{$group:{_id:"$status",totalItems:{$sum:"$items.quantity"}}}}])
+    |                                        ^
+  2 |
+
+anime>  db.orders.aggregate([{$unwind:"$items"},{$group:{_id:"$status",totalItems:{$sum:"$items.quantity"}}}])
+[
+  { _id: 'Shipped', totalItems: 5 },
+  { _id: 'Cancelled', totalItems: 3 },
+  { _id: 'Pending', totalItems: 2 },
+  { _id: 'Delivered', totalItems: 6 }
+]
+anime> db.orders.aggregate([{$unwind:"$items"},{$group:{_id:"$items.product",count:{$sum:1}}}])
+[
+  { _id: 'Mechanical Keyboard', count: 1 },
+  { _id: 'Wireless Keyboard', count: 1 },
+  { _id: 'Wireless Mouse', count: 1 },
+  { _id: 'Smartphone Case', count: 1 },
+  { _id: 'Monitor', count: 1 },
+  { _id: 'Laptop Bag', count: 1 },
+  { _id: 'Mouse Pad', count: 1 },
+  { _id: 'Gaming Headset', count: 1 },
+  { _id: 'RGB Mouse', count: 1 },
+  { _id: 'USB Hub', count: 1 },
+  { _id: 'Laptop Stand', count: 1 },
+  { _id: 'USB-C Adapter', count: 1 }
+]
+anime> db.orders.aggregate([{$unwind:"$items"},{$group:{_id:"$items.product",totalquantity:{$sum:"$items.quantity"}}}])
+[
+  { _id: 'USB-C Adapter', totalquantity: 1 },
+  { _id: 'Wireless Keyboard', totalquantity: 1 },
+  { _id: 'Smartphone Case', totalquantity: 2 },
+  { _id: 'Wireless Mouse', totalquantity: 1 },
+  { _id: 'Mouse Pad', totalquantity: 2 },
+  { _id: 'Laptop Bag', totalquantity: 1 },
+  { _id: 'Gaming Headset', totalquantity: 1 },
+  { _id: 'Monitor', totalquantity: 1 },
+  { _id: 'Laptop Stand', totalquantity: 1 },
+  { _id: 'RGB Mouse', totalquantity: 2 },
+  { _id: 'USB Hub', totalquantity: 2 },
+  { _id: 'Mechanical Keyboard', totalquantity: 1 }
+]
+anime> db.orders.aggregate([{$unwind:"$items"},{$group:{_id:"$items.product",totalRevenue:{$sum:"$totalAmount"}}}])
+[
+  { _id: 'Mechanical Keyboard', totalRevenue: 200 },
+  { _id: 'Wireless Keyboard', totalRevenue: 500 },
+  { _id: 'Wireless Mouse', totalRevenue: 150 },
+  { _id: 'Smartphone Case', totalRevenue: 80 },
+  { _id: 'Monitor', totalRevenue: 500 },
+  { _id: 'Laptop Bag', totalRevenue: 150 },
+  { _id: 'Mouse Pad', totalRevenue: 200 },
+  { _id: 'Gaming Headset', totalRevenue: 350 },
+  { _id: 'RGB Mouse', totalRevenue: 350 },
+  { _id: 'USB Hub', totalRevenue: 120 },
+  { _id: 'Laptop Stand', totalRevenue: 120 },
+  { _id: 'USB-C Adapter', totalRevenue: 200 }
+]
+anime>  db.orders.aggregate([{$unwind:"$items"},{$group:{_id:"$items.product",totalRevenue:{$sum:{$multiply:["$items.price", "$items.quantity"]}}}}])
+[
+  { _id: 'Mechanical Keyboard', totalRevenue: 120 },
+  { _id: 'Wireless Keyboard', totalRevenue: 200 },
+  { _id: 'Wireless Mouse', totalRevenue: 100 },
+  { _id: 'Smartphone Case', totalRevenue: 80 },
+  { _id: 'Monitor', totalRevenue: 300 },
+  { _id: 'Laptop Bag', totalRevenue: 50 },
+  { _id: 'Mouse Pad', totalRevenue: 40 },
+  { _id: 'Gaming Headset', totalRevenue: 150 },
+  { _id: 'RGB Mouse', totalRevenue: 200 },
+  { _id: 'USB Hub', totalRevenue: 60 },
+  { _id: 'Laptop Stand', totalRevenue: 60 },
+  { _id: 'USB-C Adapter', totalRevenue: 40 }
+]
+anime>
